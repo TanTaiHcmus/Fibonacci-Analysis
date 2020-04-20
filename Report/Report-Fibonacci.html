@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report-Fibonacci</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="báo-cáo-độ-phứt-tạp-của-bài-toán-fibonacci">Báo cáo độ phứt tạp của bài toán Fibonacci</h1>
+<p>Chúng ta giải quyết bài toán tìm số <strong>Fibonacci</strong> thứ <em>n</em> bằng <strong>2</strong> thuật toán khác nhau: <strong>Đệ quy</strong> và <strong>không đệ quy</strong>.</p>
+<blockquote>
+<p><strong>Dãy Fibonacci</strong> là dãy vô hạn các số tự nhiên bắt đầu bằng hai phần tử 1 và 1. Các phần tử tiếp theo được tính theo công thức truy hồi sau:</p>
+<p><img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/6693d2c78bc8132bb9b65be861148ca574a738ef" alt="{\displaystyle F(n):=\left{{\begin{matrix}1,,\qquad \qquad \qquad \quad ,\ \ ,&amp;&amp;{\mbox{khi }}n=1,;\ \ \1,\qquad \qquad \qquad \qquad ,&amp;&amp;{\mbox{khi }}n=2;\ \ ,\F(n-1)+F(n-2)&amp;&amp;{\mbox{khi }}n>2.\end{matrix}}\right.}"></p>
+</blockquote>
+<h2 id="thuật-toán-đệ-quy">Thuật toán đệ quy</h2>
+<p>Trên lý thuyết, thuật toán này áp dụng việc tính toán số <strong>Fibonacci</strong> thứ <em>n</em> dựa trên số <strong>Fibonacci</strong> thứ <em>n - 1</em> và <em>n - 2</em>. Như vậy ta có thể hình dung được cách tính toán này có dạng <strong>Cây nhị phân</strong> có độ cao là <em>n - 2</em> với mỗi  <em>node cha</em> có 2 <em>node con</em> và bằng tổng của chúng. Vậy nên ta có thể tính <em>số phép tính thực hiện</em> của thuật toán này là <em>2^(n - 1) - 1</em>.  Thuật toán được mô tả như sau:</p>
+<pre class=" language-java"><code class="prism  language-java"><span class="token keyword">int</span> <span class="token function">FindFibonacci</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> 
+<span class="token punctuation">{</span>
+	Count_Compare<span class="token operator">++</span><span class="token punctuation">;</span>  <span class="token comment">// So sánh n &lt;= 1</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		Count_Assign<span class="token operator">++</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span>  <span class="token number">1</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	Count_Assign<span class="token operator">++</span><span class="token punctuation">;</span>  <span class="token comment">// Phép tính n = FindFibonacci(n - 1) + FindFibonacci(n - 2)</span>
+	<span class="token keyword">return</span> <span class="token function">FindFibonacci</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">FindFibonacci</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Tính theo lý thuyết thì số phép gán là <em>2^(n - 1) - 1</em> và số phép so sánh là <em>2^(n - 1) - 1</em>.</p>
+<h3 id="bảng-kết-quả-khi-chạy-code">Bảng kết quả khi chạy code</h3>
+
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">Output</th>
+<th align="center">Count-Assign</th>
+<th align="center">Count-Compare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">8</td>
+<td align="center">15</td>
+<td align="center">15</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">34</td>
+<td align="center">67</td>
+<td align="center">67</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="center">144</td>
+<td align="center">287</td>
+<td align="center">287</td>
+</tr>
+<tr>
+<td align="center">15</td>
+<td align="center">610</td>
+<td align="center">1219</td>
+<td align="center">1219</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td align="center">2584</td>
+<td align="center">5167</td>
+<td align="center">5167</td>
+</tr>
+<tr>
+<td align="center">21</td>
+<td align="center">10946</td>
+<td align="center">21891</td>
+<td align="center">21891</td>
+</tr>
+<tr>
+<td align="center">24</td>
+<td align="center">46368</td>
+<td align="center">92735</td>
+<td align="center">92735</td>
+</tr>
+<tr>
+<td align="center">27</td>
+<td align="center">196418</td>
+<td align="center">392835</td>
+<td align="center">392835</td>
+</tr>
+<tr>
+<td align="center">30</td>
+<td align="center">832040</td>
+<td align="center">1664079</td>
+<td align="center">1664079</td>
+</tr>
+</tbody>
+</table><p><em>Kết quả được lưu lại trong file Report_Fibonacci_DeQuy.csv</em></p>
+<h2 id="thuật-toán-không-đệ-quy-vòng-lặp">Thuật toán không đệ quy (vòng lặp)</h2>
+<p>Trên lý thuyết, thuật toán này có độ phứt tạp tuyến tính <em>O(n)</em> với vòng lặp <em>1 -&gt; n</em>. Thuật toán được mô tả như sau:</p>
+<pre class=" language-java"><code class="prism  language-java"><span class="token keyword">public</span>  <span class="token keyword">int</span>  <span class="token function">FindFibonacci</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	Count_Compare<span class="token operator">++</span><span class="token punctuation">;</span>  <span class="token comment">// so sánh n &lt;= 1</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		Count_Assign<span class="token operator">++</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span>  <span class="token number">1</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>	
+	<span class="token keyword">int</span> last <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> Count_Assign<span class="token operator">++</span><span class="token punctuation">;</span>
+	<span class="token keyword">int</span> nextToLast <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> Count_Assign<span class="token operator">++</span><span class="token punctuation">;</span>
+	<span class="token keyword">int</span> answer <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> Count_Assign<span class="token operator">++</span><span class="token punctuation">;</span>
+	<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		Count_Compare<span class="token operator">++</span><span class="token punctuation">;</span>
+		answer <span class="token operator">=</span> last <span class="token operator">+</span> nextToLast<span class="token punctuation">;</span> Count_Assign<span class="token operator">++</span><span class="token punctuation">;</span>
+		nextToLast <span class="token operator">=</span> last<span class="token punctuation">;</span> Count_Assign<span class="token operator">++</span><span class="token punctuation">;</span>
+		last <span class="token operator">=</span> answer<span class="token punctuation">;</span> Count_Assign<span class="token operator">++</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	Count_Compare<span class="token operator">++</span><span class="token punctuation">;</span>  <span class="token comment">//So sánh với n tại i = n + 1</span>
+	<span class="token keyword">return</span> answer<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Tính theo lý thuyết thì số phép gán là <em>3(n - 1)</em> và số phép so sánh là <em>n</em>.</p>
+<h3 id="bảng-kết-quả-khi-chạy-code-1">Bảng kết quả khi chạy code</h3>
+
+<table>
+<thead>
+<tr>
+<th align="center">Input</th>
+<th align="center">Output</th>
+<th align="center">Count-Assign</th>
+<th align="center">Count-Compare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">6</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">8</td>
+<td align="center">15</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">34</td>
+<td align="center">24</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="center">144</td>
+<td align="center">33</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td align="center">15</td>
+<td align="center">610</td>
+<td align="center">42</td>
+<td align="center">15</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td align="center">2584</td>
+<td align="center">51</td>
+<td align="center">18</td>
+</tr>
+<tr>
+<td align="center">21</td>
+<td align="center">10946</td>
+<td align="center">60</td>
+<td align="center">21</td>
+</tr>
+<tr>
+<td align="center">24</td>
+<td align="center">46368</td>
+<td align="center">69</td>
+<td align="center">24</td>
+</tr>
+<tr>
+<td align="center">27</td>
+<td align="center">196418</td>
+<td align="center">78</td>
+<td align="center">27</td>
+</tr>
+<tr>
+<td align="center">30</td>
+<td align="center">832040</td>
+<td align="center">87</td>
+<td align="center">30</td>
+</tr>
+</tbody>
+</table><p><em>Kết quả được lưu lại trong file Report_Fibonacci_KhongDeQuy.csv</em></p>
+<h2 id="kết-luận">Kết luận</h2>
+<p>Từ những phân tích về độ phứt tạp và bảng số liệu trên, ta có thể thấy thuật toán <em>không đệ quy</em> sử dụng ít phép tính toán hơn thuật toán <em>đệ quy</em> rất nhiều lần nên nó sẽ chạy nhanh hơn nhiều lần.</p>
+</div>
+</body>
+
+</html>
